@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Phone, MessageCircle, Send, CheckCircle, AlertCircle } from "lucide-react";
+import { Mail, Phone, MessageCircle, Send, CheckCircle } from "lucide-react";
 
 // Instagram icon inline para compatibilidad con todas las versiones de lucide-react
 function InstagramIcon({ className }: { className?: string }) {
@@ -16,16 +16,22 @@ function InstagramIcon({ className }: { className?: string }) {
 }
 
 const CONTACT_INFO = {
-  email: "linaresgonzalezfranco@gmail.com",
-  phone: "+54 02920245637",
+  email: "rumboweb31@gmail.com",
+  phone: "+54 02920 245637",
+  whatsappNumber: "5402920245637",
   whatsappUrl: "https://wa.me/5402920245637?text=Hola%2C%20me%20interesa%20un%20presupuesto",
   instagramUrl: "https://instagram.com/_rumbodigitalstudio",
 };
 
+function buildWhatsAppUrl(name: string, email: string, service: string, message: string) {
+  const text = `Hola! Soy ${name} (${email}).${service ? ` Me interesa: ${service}.` : ""} ${message}`;
+  return `https://wa.me/${CONTACT_INFO.whatsappNumber}?text=${encodeURIComponent(text)}`;
+}
+
 export function ContactSection() {
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [form, setForm] = useState({ name: "", email: "", phone: "", service: "", message: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [submitted, setSubmitted] = useState(false);
 
   function validate() {
     const e: Record<string, string> = {};
@@ -36,32 +42,16 @@ export function ContactSection() {
     return e;
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const errs = validate();
     if (Object.keys(errs).length > 0) { setErrors(errs); return; }
     setErrors({});
-    setStatus("loading");
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, website: "" }),
-      });
-      if (res.status === 201 || res.ok) {
-        setStatus("success");
-        setForm({ name: "", email: "", phone: "", service: "", message: "" });
-      } else if (res.status === 429) {
-        setStatus("error");
-        setErrors({ general: "Demasiados mensajes enviados. Intenta en unos minutos." });
-      } else {
-        setStatus("error");
-        setErrors({ general: "Ocurrió un error. Por favor intentá de nuevo." });
-      }
-    } catch {
-      setStatus("error");
-      setErrors({ general: "Error de conexión. Por favor intentá de nuevo." });
-    }
+    // Open WhatsApp with pre-filled message
+    const url = buildWhatsAppUrl(form.name, form.email, form.service, form.message);
+    window.open(url, "_blank");
+    setSubmitted(true);
+    setForm({ name: "", email: "", phone: "", service: "", message: "" });
   }
 
   const inputClass = "w-full bg-background-card border border-border rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-primary-500 transition-colors placeholder-foreground-subtle";
@@ -115,7 +105,7 @@ export function ContactSection() {
               </a>
               <a href={CONTACT_INFO.instagramUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-xl bg-background-card border border-border hover:border-pink-500/50 transition-all group">
                 <InstagramIcon className="w-5 h-5 text-pink-400 shrink-0" />
-                <span className="group-hover:text-pink-400 transition-colors">@rumbodigital</span>
+                <span className="group-hover:text-pink-400 transition-colors">@_rumbodigitalstudio</span>
               </a>
             </div>
           </motion.div>
@@ -126,27 +116,17 @@ export function ContactSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            {status === "success" ? (
+            {submitted ? (
               <div className="flex flex-col items-center justify-center h-full text-center p-12 rounded-2xl bg-green-500/10 border border-green-500/30">
                 <CheckCircle className="w-16 h-16 text-green-400 mb-4" />
-                <h3 className="text-2xl font-bold mb-2">¡Mensaje enviado!</h3>
-                <p className="text-foreground-muted mb-6">Nos ponemos en contacto en menos de 24 horas.</p>
-                <button onClick={() => setStatus("idle")} className="px-6 py-3 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-all">
+                <h3 className="text-2xl font-bold mb-2">¡Se abrió WhatsApp!</h3>
+                <p className="text-foreground-muted mb-6">Tu mensaje fue enviado a nuestro WhatsApp. Te respondemos pronto.</p>
+                <button onClick={() => setSubmitted(false)} className="px-6 py-3 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-all">
                   Enviar otro mensaje
                 </button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} noValidate className="space-y-4">
-                {/* Honeypot */}
-                <input type="text" name="website" className="hidden" tabIndex={-1} autoComplete="off" />
-
-                {errors.general && (
-                  <div className="flex items-center gap-2 p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-sm">
-                    <AlertCircle className="w-4 h-4 shrink-0" />
-                    {errors.general}
-                  </div>
-                )}
-
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <input className={inputClass} placeholder="Nombre *" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} />
@@ -165,11 +145,11 @@ export function ContactSection() {
                   </div>
                   <select className={inputClass} value={form.service} onChange={e => setForm(f => ({ ...f, service: e.target.value }))}>
                     <option value="">Servicio de interés</option>
-                    <option value="landing">Landing Page</option>
-                    <option value="ecommerce">E-commerce</option>
-                    <option value="web">Desarrollo Web</option>
-                    <option value="diseño">Diseño UI/UX</option>
-                    <option value="otro">Otro</option>
+                    <option value="Landing Page">Landing Page</option>
+                    <option value="E-commerce">E-commerce</option>
+                    <option value="Desarrollo Web">Desarrollo Web</option>
+                    <option value="Diseño UI/UX">Diseño UI/UX</option>
+                    <option value="Otro">Otro</option>
                   </select>
                 </div>
 
@@ -186,22 +166,14 @@ export function ContactSection() {
 
                 <button
                   type="submit"
-                  disabled={status === "loading"}
-                  className="w-full py-4 px-8 rounded-xl bg-primary-600 hover:bg-primary-700 disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold transition-all flex items-center justify-center gap-2 shadow-glow hover:shadow-glow-lg"
+                  className="w-full py-4 px-8 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-all flex items-center justify-center gap-2 shadow-glow hover:shadow-glow-lg hover:scale-105"
                 >
-                  {status === "loading" ? (
-                    <motion.div
-                      animate={{ rotate: 360 }}
-                      transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-                      className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full"
-                    />
-                  ) : (
-                    <>
-                      <Send className="w-5 h-5" />
-                      Enviar Mensaje
-                    </>
-                  )}
+                  <Send className="w-5 h-5" />
+                  Enviar por WhatsApp
                 </button>
+                <p className="text-xs text-foreground-subtle text-center">
+                  Al hacer clic se abrirá WhatsApp con tu mensaje prellenado
+                </p>
               </form>
             )}
           </motion.div>
