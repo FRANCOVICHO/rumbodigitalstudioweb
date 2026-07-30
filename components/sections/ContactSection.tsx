@@ -2,13 +2,24 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Phone, MessageCircle, Instagram, Send, CheckCircle, AlertCircle } from "lucide-react";
+import { Mail, Phone, MessageCircle, Send, CheckCircle, AlertCircle } from "lucide-react";
+
+// Instagram icon inline para compatibilidad con todas las versiones de lucide-react
+function InstagramIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+      <circle cx="12" cy="12" r="4"/>
+      <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/>
+    </svg>
+  );
+}
 
 const CONTACT_INFO = {
-  email: "hola@rumbodigital.com",
-  phone: "+54 11 1234-5678",
-  whatsappUrl: "https://wa.me/5491112345678?text=Hola%2C%20me%20interesa%20un%20presupuesto",
-  instagramUrl: "https://instagram.com/rumbodigital",
+  email: "linaresgonzalezfranco@gmail.com",
+  phone: "+54 02920245637",
+  whatsappUrl: "https://wa.me/5402920245637?text=Hola%2C%20me%20interesa%20un%20presupuesto",
+  instagramUrl: "https://instagram.com/_rumbodigitalstudio",
 };
 
 export function ContactSection() {
@@ -103,7 +114,7 @@ export function ContactSection() {
                 <span className="group-hover:text-green-400 transition-colors">WhatsApp</span>
               </a>
               <a href={CONTACT_INFO.instagramUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-xl bg-background-card border border-border hover:border-pink-500/50 transition-all group">
-                <Instagram className="w-5 h-5 text-pink-400 shrink-0" />
+                <InstagramIcon className="w-5 h-5 text-pink-400 shrink-0" />
                 <span className="group-hover:text-pink-400 transition-colors">@rumbodigital</span>
               </a>
             </div>

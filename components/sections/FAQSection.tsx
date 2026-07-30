@@ -11,18 +11,14 @@ interface FAQSectionProps {
 
 export function FAQSection({ items }: FAQSectionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const [closing, setClosing] = useState<number | null>(null);
 
   function handleToggle(index: number) {
     if (openIndex === index) {
-      // Close current
       setOpenIndex(null);
     } else if (openIndex !== null) {
       // Sequence: close current, then open new
-      setClosing(openIndex);
       setOpenIndex(null);
       setTimeout(() => {
-        setClosing(null);
         setOpenIndex(index);
       }, 300);
     } else {

@@ -1,7 +1,17 @@
 "use client";
 
-import Link from "next/link";
-import { Instagram, Mail, MessageCircle, Heart } from "lucide-react";
+import { Mail, MessageCircle, Heart } from "lucide-react";
+
+// Instagram icon inline para compatibilidad con todas las versiones de lucide-react
+function InstagramIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+      <circle cx="12" cy="12" r="4"/>
+      <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/>
+    </svg>
+  );
+}
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -51,7 +61,7 @@ export function Footer() {
                 className="p-3 rounded-xl bg-glass hover:bg-pink-500/10 border border-border hover:border-pink-500/50 transition-all group"
                 aria-label="Instagram"
               >
-                <Instagram className="w-5 h-5 text-foreground-muted group-hover:text-pink-400 transition-colors" />
+                <InstagramIcon className="w-5 h-5 text-foreground-muted group-hover:text-pink-400 transition-colors" />
               </a>
               <a
                 href="https://wa.me/5491112345678"
