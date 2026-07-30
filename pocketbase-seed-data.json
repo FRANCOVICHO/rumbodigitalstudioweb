@@ -1,0 +1,324 @@
+{
+  "projects": [
+    {
+      "name": "Local Bar & Restaurant",
+      "slug": "local-bar-restaurant",
+      "description": "Sitio web moderno para restaurante local con menú interactivo, reservas online y galería de fotos.",
+      "longDescription": "Plataforma web completa para restaurante que incluye sistema de reservas, menú digital, galería de platos y eventos especiales.",
+      "category": "corporate",
+      "technologies": ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+      "imageUrl": "/screenshots/LOCAL.png",
+      "screenshots": ["/screenshots/LOCAL.png"],
+      "demoUrl": "https://paginaweblocalejemplo.pages.dev/",
+      "featured": true,
+      "order": 1
+    },
+    {
+      "name": "Barber Shop Premium",
+      "slug": "barber-shop-premium",
+      "description": "Landing page elegante para barbería con sistema de turnos, galería de cortes y perfiles de barberos.",
+      "longDescription": "Sitio web profesional diseñado específicamente para barberías modernas, con sistema de reservas integrado y showcase de servicios.",
+      "category": "landing",
+      "technologies": ["Next.js", "React", "CSS Modules", "React Hook Form"],
+      "imageUrl": "/screenshots/BARBER.png",
+      "screenshots": ["/screenshots/BARBER.png"],
+      "demoUrl": "https://barberejemplopagina.pages.dev/",
+      "featured": true,
+      "order": 2
+    },
+    {
+      "name": "Gym & Fitness Landing",
+      "slug": "gym-fitness-landing",
+      "description": "Landing page dinámica para gimnasio con planes de membresía, horarios de clases y testimonios.",
+      "longDescription": "Landing page de alta conversión para gimnasios y centros fitness, optimizada para captar leads y mostrar servicios.",
+      "category": "landing",
+      "technologies": ["Next.js", "TypeScript", "Tailwind CSS", "Animations"],
+      "imageUrl": "/screenshots/GYM.png",
+      "screenshots": ["/screenshots/GYM.png"],
+      "demoUrl": "https://landingpageejemplo.pages.dev/",
+      "featured": false,
+      "order": 3
+    }
+  ],
+  "services": [
+    {
+      "name": "Desarrollo Web",
+      "description": "Sitios web modernos, rápidos y responsive con las últimas tecnologías.",
+      "icon": "Code",
+      "color": "#7C3AED",
+      "features": ["Next.js 14", "React 18", "TypeScript", "Tailwind CSS"],
+      "order": 1,
+      "active": true
+    },
+    {
+      "name": "E-commerce",
+      "description": "Tiendas online completas con gestión de productos, pagos y envíos.",
+      "icon": "ShoppingCart",
+      "color": "#A855F7",
+      "features": ["Carrito de compras", "Pasarela de pagos", "Panel admin", "Inventario"],
+      "order": 2,
+      "active": true
+    },
+    {
+      "name": "Landing Pages",
+      "description": "Páginas de aterrizaje optimizadas para conversión y SEO.",
+      "icon": "Rocket",
+      "color": "#C084FC",
+      "features": ["Alto rendimiento", "SEO optimizado", "Formularios", "Analytics"],
+      "order": 3,
+      "active": true
+    },
+    {
+      "name": "Diseño UI/UX",
+      "description": "Interfaces atractivas y experiencias de usuario intuitivas.",
+      "icon": "Palette",
+      "color": "#9333EA",
+      "features": ["Figma", "Prototipos", "Design System", "Responsive"],
+      "order": 4,
+      "active": true
+    },
+    {
+      "name": "Apps Web",
+      "description": "Aplicaciones web progresivas (PWA) con funcionalidad offline.",
+      "icon": "Smartphone",
+      "color": "#7E22CE",
+      "features": ["PWA", "Offline-first", "Push notifications", "Instalable"],
+      "order": 5,
+      "active": true
+    },
+    {
+      "name": "APIs REST",
+      "description": "Desarrollo de APIs robustas y escalables para tus proyectos.",
+      "icon": "Server",
+      "color": "#6B21A8",
+      "features": ["Node.js", "Express", "MongoDB", "Documentación"],
+      "order": 6,
+      "active": true
+    },
+    {
+      "name": "Optimización SEO",
+      "description": "Mejora el posicionamiento de tu sitio en motores de búsqueda.",
+      "icon": "Search",
+      "color": "#581C87",
+      "features": ["Keywords", "Meta tags", "Performance", "Analytics"],
+      "order": 7,
+      "active": true
+    },
+    {
+      "name": "Hosting & Deploy",
+      "description": "Configuración y despliegue en servidores cloud confiables.",
+      "icon": "Cloud",
+      "color": "#7C3AED",
+      "features": ["Vercel", "Cloudflare", "AWS", "CI/CD"],
+      "order": 8,
+      "active": true
+    },
+    {
+      "name": "Mantenimiento",
+      "description": "Soporte técnico continuo y actualizaciones de tu sitio web.",
+      "icon": "Wrench",
+      "color": "#A855F7",
+      "features": ["Updates", "Backup", "Monitoreo", "Seguridad"],
+      "order": 9,
+      "active": true
+    },
+    {
+      "name": "Consultoría",
+      "description": "Asesoramiento estratégico para tu proyecto digital.",
+      "icon": "Lightbulb",
+      "color": "#C084FC",
+      "features": ["Stack tech", "Arquitectura", "Escalabilidad", "Best practices"],
+      "order": 10,
+      "active": true
+    },
+    {
+      "name": "Migraciones",
+      "description": "Actualiza tu sitio web a tecnologías modernas sin perder datos.",
+      "icon": "RefreshCw",
+      "color": "#9333EA",
+      "features": ["Modernización", "Data migration", "Zero downtime", "Testing"],
+      "order": 11,
+      "active": true
+    },
+    {
+      "name": "Integraciones",
+      "description": "Conecta tu sitio con herramientas y servicios externos.",
+      "icon": "Plug",
+      "color": "#7E22CE",
+      "features": ["CRM", "Email marketing", "Analytics", "Webhooks"],
+      "order": 12,
+      "active": true
+    },
+    {
+      "name": "Desarrollo Custom",
+      "description": "Soluciones a medida para necesidades específicas de tu negocio.",
+      "icon": "Zap",
+      "color": "#6B21A8",
+      "features": ["Requerimientos únicos", "Escalable", "Documentado", "Soporte"],
+      "order": 13,
+      "active": true
+    }
+  ],
+  "plans": [
+    {
+      "name": "Básico",
+      "price": 150000,
+      "currency": "ARS",
+      "period": "proyecto",
+      "description": "Ideal para pequeños negocios que necesitan presencia online.",
+      "features": [
+        "Hasta 5 páginas",
+        "Diseño responsive",
+        "Formulario de contacto",
+        "SEO básico",
+        "1 mes de soporte"
+      ],
+      "notIncluded": [
+        "E-commerce",
+        "Panel de administración",
+        "Integraciones avanzadas",
+        "Analytics personalizado"
+      ],
+      "highlighted": false,
+      "ctaLabel": "Comenzar",
+      "ctaHref": "#contacto",
+      "order": 1
+    },
+    {
+      "name": "Profesional",
+      "price": 300000,
+      "currency": "ARS",
+      "period": "proyecto",
+      "description": "Para empresas que buscan destacarse con funcionalidades avanzadas.",
+      "features": [
+        "Hasta 15 páginas",
+        "Diseño personalizado",
+        "Panel de administración",
+        "SEO avanzado",
+        "3 meses de soporte",
+        "Blog integrado",
+        "Formularios avanzados",
+        "Analytics"
+      ],
+      "notIncluded": [
+        "E-commerce completo",
+        "App mobile"
+      ],
+      "highlighted": true,
+      "badge": "Más elegido",
+      "ctaLabel": "Solicitar",
+      "ctaHref": "#contacto",
+      "order": 2
+    },
+    {
+      "name": "Enterprise",
+      "price": 0,
+      "currency": "ARS",
+      "period": "proyecto",
+      "description": "Soluciones completas y personalizadas para grandes proyectos.",
+      "features": [
+        "Páginas ilimitadas",
+        "Diseño 100% personalizado",
+        "E-commerce completo",
+        "Panel admin avanzado",
+        "SEO enterprise",
+        "6 meses de soporte",
+        "Integraciones API",
+        "Hosting incluido",
+        "Consultoría continua",
+        "Equipo dedicado"
+      ],
+      "notIncluded": [],
+      "highlighted": false,
+      "ctaLabel": "Contactar",
+      "ctaHref": "#contacto",
+      "order": 3
+    }
+  ],
+  "testimonials": [
+    {
+      "name": "Carlos Méndez",
+      "role": "Dueño",
+      "company": "La Parrilla Local",
+      "content": "El equipo de Rumbo superó nuestras expectativas. Nuestro sitio web es hermoso y funcional, las reservas online aumentaron un 40%.",
+      "rating": 5,
+      "active": true,
+      "order": 1
+    },
+    {
+      "name": "Martín López",
+      "role": "Barbero Principal",
+      "company": "Barber Shop Premium",
+      "content": "Excelente trabajo. El sistema de turnos online nos ahorró muchísimo tiempo y los clientes lo encuentran súper fácil de usar.",
+      "rating": 5,
+      "active": true,
+      "order": 2
+    },
+    {
+      "name": "Laura Gómez",
+      "role": "Gerente de Marketing",
+      "company": "Fitness Center",
+      "content": "Profesionales de primera. La landing page convierte muy bien y el diseño refleja perfectamente la identidad de nuestra marca.",
+      "rating": 5,
+      "active": true,
+      "order": 3
+    }
+  ],
+  "faq": [
+    {
+      "question": "¿Cuánto tiempo tarda el desarrollo de un sitio web?",
+      "answer": "El tiempo varía según la complejidad del proyecto. Un sitio básico puede estar listo en 2-3 semanas, mientras que proyectos más complejos pueden tomar entre 1 y 3 meses. Te damos un estimado preciso después de la consulta inicial.",
+      "category": "General",
+      "order": 1,
+      "active": true
+    },
+    {
+      "question": "¿Ofrecen mantenimiento después de la entrega?",
+      "answer": "Sí, todos nuestros planes incluyen un período de soporte gratuito. Después puedes contratar planes de mantenimiento mensual que incluyen actualizaciones, backups, monitoreo y soporte técnico prioritario.",
+      "category": "Soporte",
+      "order": 2,
+      "active": true
+    },
+    {
+      "question": "¿Puedo hacer cambios en mi sitio después de lanzado?",
+      "answer": "Absolutamente. Si incluiste un panel de administración en tu plan, podrás actualizar contenido, imágenes y textos por tu cuenta. Para cambios de diseño o funcionalidad, ofrecemos servicios adicionales.",
+      "category": "Funcionalidad",
+      "order": 3,
+      "active": true
+    },
+    {
+      "question": "¿Los sitios son responsive (móvil, tablet, desktop)?",
+      "answer": "Sí, todos nuestros sitios están optimizados para verse perfectamente en cualquier dispositivo: móviles, tablets y computadoras de escritorio. El diseño responsive es un estándar en todos nuestros proyectos.",
+      "category": "Diseño",
+      "order": 4,
+      "active": true
+    },
+    {
+      "question": "¿Incluyen hosting y dominio?",
+      "answer": "El plan Enterprise incluye hosting por 1 año. En los demás planes, te asesoramos en la elección y configuración del hosting y dominio. Recomendamos servicios confiables y te ayudamos con el proceso de compra y configuración.",
+      "category": "Hosting",
+      "order": 5,
+      "active": true
+    },
+    {
+      "question": "¿Cómo es el proceso de pago?",
+      "answer": "Trabajamos con un esquema de pagos flexible: 50% al iniciar el proyecto y 50% al finalizar. Para proyectos grandes, podemos establecer hitos de pago intermedios. Aceptamos transferencias bancarias y Mercado Pago.",
+      "category": "Pagos",
+      "order": 6,
+      "active": true
+    }
+  ],
+  "hero_config": [
+    {
+      "title": "Transformamos Ideas en Experiencias Digitales",
+      "subtitle": "Agencia de desarrollo web especializada en crear sitios modernos, rápidos y optimizados para tu negocio.",
+      "ctaPrimaryLabel": "Ver Proyectos",
+      "ctaPrimaryHref": "#proyectos",
+      "ctaSecondaryLabel": "Contactar",
+      "ctaSecondaryHref": "#contacto",
+      "badgeText": "🚀 Diseño + Desarrollo",
+      "heroImageUrl": "/hero-devices.png",
+      "active": true
+    }
+  ]
+}
