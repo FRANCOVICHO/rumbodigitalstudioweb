@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Mail, Eye, Trash2, CheckCircle } from "lucide-react";
+import { Mail, Trash2, CheckCircle } from "lucide-react";
 
 const PB_URL = process.env.NEXT_PUBLIC_POCKETBASE_URL!;
 

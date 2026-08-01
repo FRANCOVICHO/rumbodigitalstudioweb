@@ -10,7 +10,6 @@ const inp = "w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 tex
 
 // We store contact info in a simple PocketBase collection called "site_config"
 // Key-value pairs: key, value
-const KEYS = ["email", "phone", "whatsapp_number", "instagram_url", "address"];
 
 export default function AdminContactPage() {
   const [form, setForm] = useState({ email: "", phone: "", whatsapp_number: "", instagram_url: "", address: "" });

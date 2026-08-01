@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Save, Sun, Moon, Terminal, Sparkles } from "lucide-react";
-import { motion } from "framer-motion";
+import { Sun, Moon, Terminal, Sparkles } from "lucide-react";
 import { StatusBanner } from "@/components/admin/StatusBanner";
 import { useTheme } from "@/hooks/useTheme";
 import type { ThemeMode } from "@/types";

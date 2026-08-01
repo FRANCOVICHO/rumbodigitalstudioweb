@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import {
   LayoutDashboard, FolderOpen, Briefcase, CreditCard,
-  HelpCircle, Mail, Palette, LogOut, Menu, X,
+  HelpCircle, Mail, Palette, LogOut, Menu,
   Home, MessageSquare, Star
 } from "lucide-react";
 import { cn } from "@/lib/utils";

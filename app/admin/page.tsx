@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { FolderOpen, MessageSquare, Eye, Star, TrendingUp, ExternalLink } from "lucide-react";
+import { FolderOpen, MessageSquare, Eye, Star, ExternalLink } from "lucide-react";
 
 const PB_URL = process.env.NEXT_PUBLIC_POCKETBASE_URL!;
 

@@ -101,7 +101,7 @@ export default function AdminPlansPage() {
                   <div><label className="block text-xs text-foreground-muted mb-1">Período</label><input className={inp} value={form.period} onChange={e => setForm(f => ({ ...f, period: e.target.value }))} placeholder="proyecto / mes" /></div>
                 </div>
                 <div><label className="block text-xs text-foreground-muted mb-1">Descripción</label><input className={inp} value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} /></div>
-                <div><label className="block text-xs text-foreground-muted mb-1">Badge (ej: "Más elegido")</label><input className={inp} value={form.badge} onChange={e => setForm(f => ({ ...f, badge: e.target.value }))} /></div>
+                <div><label className="block text-xs text-foreground-muted mb-1">Badge (ej: Más elegido)</label><input className={inp} value={form.badge} onChange={e => setForm(f => ({ ...f, badge: e.target.value }))} /></div>
                 <div><label className="block text-xs text-foreground-muted mb-1">Features incluidos (uno por línea)</label><textarea className={`${inp} resize-none`} rows={4} value={form.features as string} onChange={e => setForm(f => ({ ...f, features: e.target.value }))} placeholder={"5 páginas\nDiseño responsive\nSEO básico"} /></div>
                 <div><label className="block text-xs text-foreground-muted mb-1">No incluidos (uno por línea)</label><textarea className={`${inp} resize-none`} rows={3} value={form.notIncluded as string} onChange={e => setForm(f => ({ ...f, notIncluded: e.target.value }))} /></div>
                 <div className="grid grid-cols-2 gap-3">
