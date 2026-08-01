@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { UserMenu } from "@/components/ui/UserMenu";
 
 const navLinks = [
   { label: "Inicio", href: "#inicio" },
@@ -88,14 +89,9 @@ export function Navbar() {
           })}
         </nav>
 
-        {/* CTA + Login */}
+        {/* User menu + CTA */}
         <div className="hidden md:flex items-center gap-3">
-          <Link
-            href="/admin/login"
-            className="px-4 py-2 rounded-xl text-sm font-medium text-foreground-muted hover:text-white hover:bg-glass border border-border hover:border-primary-500/50 transition-all"
-          >
-            Iniciar sesión
-          </Link>
+          <UserMenu />
           <a
             href="#contacto"
             onClick={(e) => handleNavClick(e, "#contacto")}

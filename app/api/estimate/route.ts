@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const GROQ_API_KEY = process.env.GROQ_API_KEY;
-const MODEL = "meta-llama/llama-4-scout-17b-16e-instruct";
+const MODEL = "qwen/qwen3.6-27b";
 
 export async function POST(request: NextRequest) {
   if (!GROQ_API_KEY) {
