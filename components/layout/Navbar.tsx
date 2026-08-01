@@ -88,14 +88,22 @@ export function Navbar() {
           })}
         </nav>
 
-        {/* CTA */}
-        <a
-          href="#contacto"
-          onClick={(e) => handleNavClick(e, "#contacto")}
-          className="hidden md:inline-flex items-center px-5 py-2.5 rounded-xl bg-primary-600 hover:bg-primary-700 text-white text-sm font-semibold transition-all shadow-glow hover:shadow-glow-lg hover:scale-105"
-        >
-          Contactar
-        </a>
+        {/* CTA + Login */}
+        <div className="hidden md:flex items-center gap-3">
+          <Link
+            href="/admin/login"
+            className="px-4 py-2 rounded-xl text-sm font-medium text-foreground-muted hover:text-white hover:bg-glass border border-border hover:border-primary-500/50 transition-all"
+          >
+            Iniciar sesión
+          </Link>
+          <a
+            href="#contacto"
+            onClick={(e) => handleNavClick(e, "#contacto")}
+            className="inline-flex items-center px-5 py-2.5 rounded-xl bg-primary-600 hover:bg-primary-700 text-white text-sm font-semibold transition-all shadow-glow hover:shadow-glow-lg hover:scale-105"
+          >
+            Contactar
+          </a>
+        </div>
 
         {/* Hamburger */}
         <button

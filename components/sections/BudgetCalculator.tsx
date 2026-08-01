@@ -5,57 +5,100 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Calculator, Check, ChevronRight, RotateCcw, MessageCircle } from "lucide-react";
 
 const PROJECT_TYPES = [
-  { id: "landing", label: "Landing Page", base: 80000, icon: "🚀" },
-  { id: "corporate", label: "Web Empresarial", base: 150000, icon: "🏢" },
-  { id: "ecommerce", label: "Tienda Online", base: 250000, icon: "🛒" },
-  { id: "custom", label: "Sistema a Medida", base: 400000, icon: "⚙️" },
+  {
+    id: "landing",
+    label: "Landing Page",
+    icon: "🚀",
+    desc: "Página web simple de una sola pantalla, ideal para presentar un negocio, producto o servicio y captar clientes.",
+    complexity: 1,
+  },
+  {
+    id: "corporate",
+    label: "Web Empresarial",
+    icon: "🏢",
+    desc: "Sitio web completo con múltiples secciones, ideal para empresas que quieren mostrar su negocio profesionalmente.",
+    complexity: 2,
+  },
+  {
+    id: "ecommerce",
+    label: "Tienda Online",
+    icon: "🛒",
+    desc: "Plataforma de ventas con catálogo de productos, carrito de compras, pagos online y gestión de pedidos.",
+    complexity: 3,
+  },
+  {
+    id: "custom",
+    label: "Sistema a Medida",
+    icon: "⚙️",
+    desc: "Desarrollo personalizado para necesidades específicas: sistemas de gestión, apps web, automatizaciones o integraciones complejas.",
+    complexity: 4,
+  },
 ];
 
 const FEATURES = [
-  { id: "admin", label: "Panel de Administración", price: 60000 },
-  { id: "blog", label: "Blog integrado", price: 30000 },
-  { id: "seo", label: "SEO avanzado", price: 25000 },
-  { id: "analytics", label: "Analytics y métricas", price: 20000 },
-  { id: "multilang", label: "Multi-idioma", price: 40000 },
-  { id: "payments", label: "Sistema de pagos", price: 50000 },
-  { id: "chat", label: "Chat en vivo", price: 35000 },
-  { id: "pwa", label: "App móvil (PWA)", price: 45000 },
+  { id: "admin", label: "Panel de Administración", desc: "Editá el contenido de tu sitio sin tocar código", complexity: 1 },
+  { id: "blog", label: "Blog o Noticias", desc: "Publicá artículos y novedades de tu negocio", complexity: 1 },
+  { id: "seo", label: "SEO Avanzado", desc: "Optimización profunda para aparecer en Google", complexity: 1 },
+  { id: "payments", label: "Sistema de Pagos", desc: "Integración con Mercado Pago u otras pasarelas", complexity: 2 },
+  { id: "multilang", label: "Multi-idioma", desc: "El sitio en español, inglés u otros idiomas", complexity: 2 },
+  { id: "analytics", label: "Analytics y Reportes", desc: "Dashboard con métricas de visitas y conversiones", complexity: 1 },
+  { id: "chat", label: "Chat en Vivo", desc: "Chat para atender consultas en tiempo real", complexity: 1 },
+  { id: "pwa", label: "App Móvil (PWA)", desc: "El sitio funciona como app instalable en el celular", complexity: 2 },
+  { id: "automation", label: "Automatizaciones", desc: "Emails automáticos, notificaciones y flujos de trabajo", complexity: 2 },
+  { id: "ia", label: "Integración con IA", desc: "Asistente virtual, recomendaciones o búsqueda inteligente", complexity: 3 },
 ];
 
 const PAGE_COUNTS = [
-  { id: "1-3", label: "1-3 páginas", multiplier: 1 },
-  { id: "4-8", label: "4-8 páginas", multiplier: 1.3 },
-  { id: "9-15", label: "9-15 páginas", multiplier: 1.6 },
-  { id: "15+", label: "15+ páginas", multiplier: 2 },
+  { id: "1-3", label: "1 a 3 páginas", desc: "Home, Servicios, Contacto", complexity: 1 },
+  { id: "4-8", label: "4 a 8 páginas", desc: "Agregando About, Blog, Galería, etc.", complexity: 2 },
+  { id: "9-15", label: "9 a 15 páginas", desc: "Sitio completo con múltiples secciones", complexity: 3 },
+  { id: "15+", label: "Más de 15 páginas", desc: "Sitio grande o plataforma compleja", complexity: 4 },
 ];
 
-function formatARS(n: number) {
-  return new Intl.NumberFormat("es-AR", { style: "currency", currency: "ARS", maximumFractionDigits: 0 }).format(n);
-}
+const TIMELINES = [
+  { id: "urgent", label: "Lo antes posible", desc: "Entrega prioritaria", multiplier: 1.3 },
+  { id: "normal", label: "1 a 2 meses", desc: "Tiempo estándar sin apuros", multiplier: 1 },
+  { id: "relaxed", label: "Más de 2 meses", desc: "Sin urgencia, trabajo planificado", multiplier: 0.9 },
+];
+
+const COMPLEXITY_LABEL = ["", "Básico", "Intermedio", "Avanzado", "Premium"];
+const COMPLEXITY_DESC = [
+  "",
+  "Proyecto simple, rápido de desarrollar",
+  "Proyecto de complejidad media",
+  "Proyecto complejo con múltiples funciones",
+  "Proyecto premium con alta complejidad",
+];
 
 export function BudgetCalculator() {
   const [step, setStep] = useState(0);
   const [projectType, setProjectType] = useState<string | null>(null);
   const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
   const [pageCount, setPageCount] = useState<string | null>(null);
+  const [timeline, setTimeline] = useState<string | null>(null);
   const [showResult, setShowResult] = useState(false);
 
   const selectedProject = PROJECT_TYPES.find(p => p.id === projectType);
   const selectedPages = PAGE_COUNTS.find(p => p.id === pageCount);
-  const featuresTotal = FEATURES.filter(f => selectedFeatures.includes(f.id)).reduce((a, f) => a + f.price, 0);
-  const basePrice = selectedProject ? selectedProject.base * (selectedPages?.multiplier || 1) + featuresTotal : 0;
-  const minPrice = Math.round(basePrice * 0.9);
-  const maxPrice = Math.round(basePrice * 1.2);
+  const selectedTimeline = TIMELINES.find(t => t.id === timeline);
+  const selectedFeatureObjs = FEATURES.filter(f => selectedFeatures.includes(f.id));
+
+  // Calculate complexity score
+  const baseComplexity = selectedProject?.complexity || 0;
+  const pageComplexity = selectedPages?.complexity || 0;
+  const featureComplexity = selectedFeatureObjs.reduce((a, f) => a + f.complexity, 0);
+  const timeMultiplier = selectedTimeline?.multiplier || 1;
+  const totalComplexity = Math.min(4, Math.round((baseComplexity + pageComplexity / 2 + featureComplexity / 3) * timeMultiplier / 1.5));
 
   function toggleFeature(id: string) {
     setSelectedFeatures(prev => prev.includes(id) ? prev.filter(f => f !== id) : [...prev, id]);
   }
 
   function reset() {
-    setStep(0); setProjectType(null); setSelectedFeatures([]); setPageCount(null); setShowResult(false);
+    setStep(0); setProjectType(null); setSelectedFeatures([]); setPageCount(null); setTimeline(null); setShowResult(false);
   }
 
-  const WHATSAPP_MSG = `Hola! Usé la calculadora de presupuesto y me interesa un proyecto tipo "${selectedProject?.label}" con ${selectedPages?.label}. Presupuesto estimado: ${formatARS(minPrice)} - ${formatARS(maxPrice)}. ¿Podemos hablar?`;
+  const WHATSAPP_MSG = `Hola! Usé la calculadora de presupuesto en Rumbo Digital Studio. Necesito un "${selectedProject?.label}" con ${selectedPages?.label}${selectedFeatureObjs.length > 0 ? `, con funciones como: ${selectedFeatureObjs.map(f => f.label).join(", ")}` : ""}. Complejidad estimada: ${COMPLEXITY_LABEL[totalComplexity]}. ¿Me podés dar más información?`;
 
   return (
     <section id="calculadora" className="py-24 bg-background-secondary">
@@ -72,45 +115,45 @@ export function BudgetCalculator() {
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             <span className="bg-gradient-primary bg-clip-text text-transparent">
-              ¿Cuánto cuesta tu web?
+              ¿Qué proyecto necesitás?
             </span>
           </h2>
           <p className="text-xl text-foreground-muted max-w-2xl mx-auto">
-            Obtené un estimado instantáneo y sin compromiso
+            Respondé algunas preguntas y te damos un estimado de complejidad. Luego hablamos del precio real.
           </p>
         </motion.div>
 
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-3xl mx-auto">
           <AnimatePresence mode="wait">
             {!showResult ? (
               <motion.div key="steps" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                {/* Progress */}
+                {/* Progress bar */}
                 <div className="flex items-center gap-2 mb-8">
-                  {["Tipo", "Funciones", "Tamaño"].map((label, i) => (
-                    <div key={i} className="flex items-center gap-2 flex-1">
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all ${i < step ? "bg-green-500 text-white" : i === step ? "bg-primary-600 text-white" : "bg-white/10 text-foreground-subtle"}`}>
+                  {["Tipo", "Funciones", "Tamaño", "Plazo"].map((label, i) => (
+                    <div key={i} className="flex items-center gap-2 flex-1 min-w-0">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shrink-0 transition-all ${i < step ? "bg-green-500 text-white" : i === step ? "bg-primary-600 text-white" : "bg-white/10 text-foreground-subtle"}`}>
                         {i < step ? <Check className="w-4 h-4" /> : i + 1}
                       </div>
-                      <span className={`text-sm flex-1 ${i === step ? "text-white font-medium" : "text-foreground-muted"}`}>{label}</span>
-                      {i < 2 && <ChevronRight className="w-4 h-4 text-foreground-subtle shrink-0" />}
+                      <span className={`text-sm truncate ${i === step ? "text-white font-medium" : "text-foreground-muted"}`}>{label}</span>
+                      {i < 3 && <ChevronRight className="w-4 h-4 text-foreground-subtle shrink-0" />}
                     </div>
                   ))}
                 </div>
 
                 {/* Step 0: Project type */}
                 {step === 0 && (
-                  <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-4">
-                    <h3 className="text-xl font-bold mb-4">¿Qué tipo de proyecto necesitás?</h3>
-                    <div className="grid grid-cols-2 gap-3">
+                  <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
+                    <h3 className="text-xl font-bold mb-6">¿Qué tipo de proyecto necesitás?</h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {PROJECT_TYPES.map(pt => (
                         <button
                           key={pt.id}
                           onClick={() => { setProjectType(pt.id); setStep(1); }}
-                          className="p-5 rounded-2xl border text-left transition-all hover:border-primary-500/50 hover:bg-primary-600/10 border-white/10 bg-white/5"
+                          className="p-5 rounded-2xl border text-left transition-all hover:border-primary-500/70 hover:bg-primary-600/10 border-white/10 bg-white/5 group"
                         >
-                          <span className="text-2xl mb-2 block">{pt.icon}</span>
-                          <span className="font-semibold block">{pt.label}</span>
-                          <span className="text-xs text-foreground-muted mt-1 block">desde {formatARS(pt.base)}</span>
+                          <span className="text-3xl mb-3 block">{pt.icon}</span>
+                          <span className="font-bold text-base block mb-2 group-hover:text-primary-400 transition-colors">{pt.label}</span>
+                          <span className="text-xs text-foreground-muted leading-relaxed">{pt.desc}</span>
                         </button>
                       ))}
                     </div>
@@ -119,27 +162,30 @@ export function BudgetCalculator() {
 
                 {/* Step 1: Features */}
                 {step === 1 && (
-                  <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-4">
-                    <h3 className="text-xl font-bold mb-4">¿Qué funciones necesitás?</h3>
-                    <div className="grid grid-cols-2 gap-2">
+                  <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
+                    <h3 className="text-xl font-bold mb-2">¿Qué funciones necesitás?</h3>
+                    <p className="text-foreground-muted text-sm mb-6">Seleccioná todo lo que quieras incluir (podés elegir varias)</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
                       {FEATURES.map(f => {
                         const selected = selectedFeatures.includes(f.id);
                         return (
                           <button
                             key={f.id}
                             onClick={() => toggleFeature(f.id)}
-                            className={`p-3 rounded-xl border text-left transition-all ${selected ? "border-primary-500 bg-primary-600/20 text-white" : "border-white/10 bg-white/5 text-foreground-muted hover:border-white/20"}`}
+                            className={`p-4 rounded-xl border text-left transition-all ${selected ? "border-primary-500 bg-primary-600/20" : "border-white/10 bg-white/5 hover:border-white/20"}`}
                           >
-                            <div className="flex items-center justify-between">
-                              <span className="text-sm font-medium">{f.label}</span>
-                              {selected && <Check className="w-4 h-4 text-primary-400 shrink-0" />}
+                            <div className="flex items-start justify-between gap-2">
+                              <div>
+                                <span className={`text-sm font-semibold block ${selected ? "text-white" : "text-foreground-muted"}`}>{f.label}</span>
+                                <span className="text-xs text-foreground-subtle mt-0.5 block">{f.desc}</span>
+                              </div>
+                              {selected && <Check className="w-4 h-4 text-primary-400 shrink-0 mt-0.5" />}
                             </div>
-                            <span className="text-xs text-foreground-subtle">+{formatARS(f.price)}</span>
                           </button>
                         );
                       })}
                     </div>
-                    <button onClick={() => setStep(2)} className="w-full py-3 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-all mt-4">
+                    <button onClick={() => setStep(2)} className="w-full py-3 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-all">
                       Continuar →
                     </button>
                   </motion.div>
@@ -147,17 +193,39 @@ export function BudgetCalculator() {
 
                 {/* Step 2: Page count */}
                 {step === 2 && (
-                  <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-4">
-                    <h3 className="text-xl font-bold mb-4">¿Cuántas páginas necesitás?</h3>
-                    <div className="grid grid-cols-2 gap-3">
+                  <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
+                    <h3 className="text-xl font-bold mb-6">¿Cuántas páginas o secciones necesitás?</h3>
+                    <div className="grid grid-cols-2 gap-4">
                       {PAGE_COUNTS.map(pc => (
                         <button
                           key={pc.id}
-                          onClick={() => { setPageCount(pc.id); setShowResult(true); }}
-                          className="p-5 rounded-2xl border text-left transition-all hover:border-primary-500/50 hover:bg-primary-600/10 border-white/10 bg-white/5"
+                          onClick={() => { setPageCount(pc.id); setStep(3); }}
+                          className="p-5 rounded-2xl border text-left transition-all hover:border-primary-500/70 hover:bg-primary-600/10 border-white/10 bg-white/5 group"
                         >
-                          <span className="font-semibold block">{pc.label}</span>
-                          <span className="text-xs text-foreground-muted mt-1 block">×{pc.multiplier} del precio base</span>
+                          <span className="font-bold block mb-1 group-hover:text-primary-400 transition-colors">{pc.label}</span>
+                          <span className="text-xs text-foreground-muted">{pc.desc}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* Step 3: Timeline */}
+                {step === 3 && (
+                  <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
+                    <h3 className="text-xl font-bold mb-6">¿En cuánto tiempo lo necesitás?</h3>
+                    <div className="space-y-3">
+                      {TIMELINES.map(t => (
+                        <button
+                          key={t.id}
+                          onClick={() => { setTimeline(t.id); setShowResult(true); }}
+                          className="w-full p-5 rounded-2xl border text-left transition-all hover:border-primary-500/70 hover:bg-primary-600/10 border-white/10 bg-white/5 group flex items-center justify-between"
+                        >
+                          <div>
+                            <span className="font-bold block group-hover:text-primary-400 transition-colors">{t.label}</span>
+                            <span className="text-xs text-foreground-muted">{t.desc}</span>
+                          </div>
+                          <ChevronRight className="w-5 h-5 text-foreground-subtle group-hover:text-primary-400 transition-colors" />
                         </button>
                       ))}
                     </div>
@@ -166,38 +234,40 @@ export function BudgetCalculator() {
               </motion.div>
             ) : (
               /* Result */
-              <motion.div key="result" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="p-8 rounded-2xl bg-primary-600/10 border border-primary-500/30 text-center space-y-6">
-                <div>
-                  <p className="text-foreground-muted mb-2">Presupuesto estimado para tu proyecto</p>
-                  <h3 className="text-4xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-                    {formatARS(minPrice)} — {formatARS(maxPrice)}
+              <motion.div key="result" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="space-y-6">
+                <div className="p-8 rounded-2xl bg-primary-600/10 border border-primary-500/30 text-center">
+                  <p className="text-foreground-muted mb-2">Tu proyecto es de complejidad</p>
+                  <h3 className="text-5xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-2">
+                    {COMPLEXITY_LABEL[Math.max(1, totalComplexity)] || "Avanzado"}
                   </h3>
-                  <p className="text-sm text-foreground-subtle mt-2">ARS · Precio final a convenir</p>
+                  <p className="text-foreground-muted">{COMPLEXITY_DESC[Math.max(1, totalComplexity)]}</p>
                 </div>
 
-                <div className="text-left space-y-2 p-4 rounded-xl bg-black/20">
-                  <div className="flex justify-between text-sm"><span className="text-foreground-muted">Tipo:</span><span>{selectedProject?.label}</span></div>
-                  <div className="flex justify-between text-sm"><span className="text-foreground-muted">Tamaño:</span><span>{selectedPages?.label}</span></div>
-                  {selectedFeatures.length > 0 && (
-                    <div className="flex justify-between text-sm"><span className="text-foreground-muted">Funciones:</span><span>{selectedFeatures.length} adicionales</span></div>
+                <div className="p-6 rounded-2xl bg-white/5 border border-white/10 space-y-3">
+                  <h4 className="font-semibold text-sm text-foreground-muted uppercase tracking-wider">Resumen</h4>
+                  <div className="flex justify-between text-sm"><span className="text-foreground-muted">Tipo:</span><span className="font-medium">{selectedProject?.label}</span></div>
+                  <div className="flex justify-between text-sm"><span className="text-foreground-muted">Tamaño:</span><span className="font-medium">{selectedPages?.label}</span></div>
+                  <div className="flex justify-between text-sm"><span className="text-foreground-muted">Plazo:</span><span className="font-medium">{selectedTimeline?.label}</span></div>
+                  {selectedFeatureObjs.length > 0 && (
+                    <div className="flex justify-between text-sm"><span className="text-foreground-muted">Funciones extra:</span><span className="font-medium">{selectedFeatureObjs.length} seleccionadas</span></div>
                   )}
                 </div>
 
-                <p className="text-sm text-foreground-muted">
-                  Este es un estimado orientativo. El precio final depende de los detalles específicos de tu proyecto.
-                </p>
+                <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20 text-sm text-blue-300">
+                  <p>💬 El precio final depende de los detalles específicos. Contactanos y te damos un presupuesto exacto sin compromiso.</p>
+                </div>
 
                 <div className="flex gap-3">
-                  <button onClick={reset} className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-sm font-semibold transition-all">
+                  <button onClick={reset} className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 font-semibold transition-all text-sm">
                     <RotateCcw className="w-4 h-4" /> Recalcular
                   </button>
                   <a
                     href={`https://wa.me/5402920245637?text=${encodeURIComponent(WHATSAPP_MSG)}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-green-500 hover:bg-green-600 text-white text-sm font-semibold transition-all"
+                    className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-green-500 hover:bg-green-600 text-white font-semibold transition-all text-sm"
                   >
-                    <MessageCircle className="w-4 h-4" /> Consultar ahora
+                    <MessageCircle className="w-4 h-4" /> Consultar precio real
                   </a>
                 </div>
               </motion.div>
