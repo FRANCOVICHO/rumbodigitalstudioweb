@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -62,6 +63,14 @@ export function Navbar() {
       <div className="container mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="#inicio" onClick={(e) => handleNavClick(e, "#inicio")} className="flex items-center gap-2">
+          <Image
+            src="/logo.png"
+            alt="Rumbo Digital Studio"
+            width={32}
+            height={32}
+            className="rounded-lg"
+            unoptimized
+          />
           <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
             Rumbo Digital
           </span>
