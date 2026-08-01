@@ -14,50 +14,8 @@ export const fallbackData: FallbackData = {
     heroImageUrl: "/hero-devices.png",
     active: true,
   },
-  projects: [
-    {
-      id: "1",
-      name: "Local Bar & Restaurant",
-      slug: "local-bar-restaurant",
-      description:
-        "Sitio web moderno para restaurante local con menú interactivo, reservas online y galería de fotos.",
-      category: "corporate",
-      technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
-      imageUrl: "/screenshots/LOCAL.png",
-      screenshots: ["/screenshots/LOCAL.png"],
-      demoUrl: "https://paginaweblocalejemplo.pages.dev/",
-      featured: true,
-      order: 1,
-    },
-    {
-      id: "2",
-      name: "Barber Shop Premium",
-      slug: "barber-shop-premium",
-      description:
-        "Landing page elegante para barbería con sistema de turnos, galería de cortes y perfiles de barberos.",
-      category: "landing",
-      technologies: ["Next.js", "React", "CSS Modules", "React Hook Form"],
-      imageUrl: "/screenshots/BARBER.png",
-      screenshots: ["/screenshots/BARBER.png"],
-      demoUrl: "https://barberejemplopagina.pages.dev/",
-      featured: true,
-      order: 2,
-    },
-    {
-      id: "3",
-      name: "Gym & Fitness Landing",
-      slug: "gym-fitness-landing",
-      description:
-        "Landing page dinámica para gimnasio con planes de membresía, horarios de clases y testimonios.",
-      category: "landing",
-      technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Animations"],
-      imageUrl: "/screenshots/GYM.png",
-      screenshots: ["/screenshots/GYM.png"],
-      demoUrl: "https://landingpageejemplo.pages.dev/",
-      featured: false,
-      order: 3,
-    },
-  ],
+  projects: [],
+  
   services: [
     { id: "1", name: "Desarrollo Web", description: "Sitios web modernos, rápidos y responsive.", icon: "Code", color: "#7C3AED", features: ["Next.js 14", "React 18", "TypeScript", "Tailwind CSS"], order: 1, active: true },
     { id: "2", name: "E-commerce", description: "Tiendas online completas con gestión de productos y pagos.", icon: "ShoppingCart", color: "#A855F7", features: ["Carrito", "Pagos", "Panel admin", "Inventario"], order: 2, active: true },
@@ -96,11 +54,7 @@ export const fallbackData: FallbackData = {
       highlighted: false, ctaLabel: "Contactar", ctaHref: "#contacto", order: 3,
     },
   ],
-  testimonials: [
-    { id: "1", name: "Carlos Méndez", role: "Dueño", company: "La Parrilla Local", content: "El equipo de Rumbo superó nuestras expectativas. El sitio es hermoso y funcional, las reservas online aumentaron un 40%.", rating: 5, active: true, order: 1 },
-    { id: "2", name: "Martín López", role: "Barbero Principal", company: "Barber Shop Premium", content: "Excelente trabajo. El sistema de turnos online nos ahorró muchísimo tiempo y los clientes lo encuentran súper fácil de usar.", rating: 5, active: true, order: 2 },
-    { id: "3", name: "Laura Gómez", role: "Gerente de Marketing", company: "Fitness Center", content: "Profesionales de primera. La landing page convierte muy bien y refleja perfectamente la identidad de nuestra marca.", rating: 5, active: true, order: 3 },
-  ],
+  testimonials: [],
   faq: [
     { id: "1", question: "¿Cuánto tiempo tarda el desarrollo?", answer: "Varía según la complejidad. Un sitio básico puede estar listo en 2-3 semanas, proyectos más complejos entre 1 y 3 meses. Te damos un estimado preciso después de la consulta inicial.", category: "General", order: 1, active: true },
     { id: "2", question: "¿Ofrecen mantenimiento después de la entrega?", answer: "Sí, todos nuestros planes incluyen soporte gratuito inicial. Luego podés contratar mantenimiento mensual con actualizaciones, backups y soporte técnico prioritario.", category: "Soporte", order: 2, active: true },

@@ -11,8 +11,7 @@ import { ContactSection } from "@/components/sections/ContactSection";
 import { fallbackData } from "@/lib/fallback-data";
 
 export default function Home() {
-  // For now, use fallback data (later we'll fetch from PocketBase)
-  const { heroConfig, projects, services, plans, testimonials, faq } = fallbackData;
+  const { heroConfig, projects, services, plans, faq } = fallbackData;
 
   return (
     <>
@@ -23,7 +22,7 @@ export default function Home() {
         <ServicesSection services={services} />
         <HowWeWorkSection />
         <PlansSection plans={plans} />
-        <TestimonialsSection testimonials={testimonials} />
+        <TestimonialsSection />
         <FAQSection items={faq} />
         <ContactSection />
       </main>
