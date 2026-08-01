@@ -77,6 +77,10 @@ export function BudgetCalculator() {
   const [pageCount, setPageCount] = useState<string | null>(null);
   const [timeline, setTimeline] = useState<string | null>(null);
   const [showResult, setShowResult] = useState(false);
+  const [imageBase64, setImageBase64] = useState<string | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [aiEstimate, setAiEstimate] = useState<string | null>(null);
+  const [aiLoading, setAiLoading] = useState(false);
 
   const selectedProject = PROJECT_TYPES.find(p => p.id === projectType);
   const selectedPages = PAGE_COUNTS.find(p => p.id === pageCount);
@@ -95,7 +99,44 @@ export function BudgetCalculator() {
   }
 
   function reset() {
-    setStep(0); setProjectType(null); setSelectedFeatures([]); setPageCount(null); setTimeline(null); setShowResult(false);
+    setStep(0); setProjectType(null); setSelectedFeatures([]); setPageCount(null); setTimeline(null);
+    setShowResult(false); setImageBase64(null); setImagePreview(null); setAiEstimate(null);
+  }
+
+  function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const result = ev.target?.result as string;
+      setImageBase64(result);
+      setImagePreview(result);
+    };
+    reader.readAsDataURL(file);
+  }
+
+  async function getAiEstimate(tl: string) {
+    setAiLoading(true);
+    setAiEstimate(null);
+    try {
+      const res = await fetch("/api/estimate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          projectType: selectedProject?.label,
+          features: selectedFeatureObjs.map(f => f.label),
+          pageCount: selectedPages?.label,
+          timeline: TIMELINES.find(t => t.id === tl)?.label,
+          imageBase64: imageBase64 || null,
+        }),
+      });
+      const data = await res.json();
+      setAiEstimate(data.estimate || "No se pudo obtener el estimado.");
+    } catch {
+      setAiEstimate("Error al conectar con la IA. Contactanos directamente.");
+    } finally {
+      setAiLoading(false);
+    }
   }
 
   const WHATSAPP_MSG = `Hola! Usé la calculadora de presupuesto en Rumbo Digital Studio. Necesito un "${selectedProject?.label}" con ${selectedPages?.label}${selectedFeatureObjs.length > 0 ? `, con funciones como: ${selectedFeatureObjs.map(f => f.label).join(", ")}` : ""}. Complejidad estimada: ${COMPLEXITY_LABEL[totalComplexity]}. ¿Me podés dar más información?`;
@@ -213,12 +254,32 @@ export function BudgetCalculator() {
                 {/* Step 3: Timeline */}
                 {step === 3 && (
                   <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
-                    <h3 className="text-xl font-bold mb-6">¿En cuánto tiempo lo necesitás?</h3>
+                    <h3 className="text-xl font-bold mb-2">¿En cuánto tiempo lo necesitás?</h3>
+                    <p className="text-foreground-muted text-sm mb-6">Esto afecta el costo y la planificación del proyecto</p>
+
+                    {/* Optional image upload */}
+                    <div className="mb-6 p-4 rounded-xl border border-dashed border-white/20 bg-white/3">
+                      <p className="text-sm font-medium mb-2">📸 ¿Tenés una imagen de referencia? <span className="text-foreground-subtle">(opcional)</span></p>
+                      <p className="text-xs text-foreground-muted mb-3">Subí una foto de tu negocio, un diseño que te gustó o cualquier referencia visual para que la IA sea más precisa</p>
+                      <div className="flex items-center gap-3">
+                        <label className="cursor-pointer px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 text-sm font-medium transition-all">
+                          <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
+                          {imagePreview ? "Cambiar imagen" : "Subir imagen"}
+                        </label>
+                        {imagePreview && (
+                          <div className="relative w-16 h-12 rounded-lg overflow-hidden border border-white/20">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
                     <div className="space-y-3">
                       {TIMELINES.map(t => (
                         <button
                           key={t.id}
-                          onClick={() => { setTimeline(t.id); setShowResult(true); }}
+                          onClick={() => { setTimeline(t.id); setShowResult(true); getAiEstimate(t.id); }}
                           className="w-full p-5 rounded-2xl border text-left transition-all hover:border-primary-500/70 hover:bg-primary-600/10 border-white/10 bg-white/5 group flex items-center justify-between"
                         >
                           <div>
@@ -253,8 +314,30 @@ export function BudgetCalculator() {
                   )}
                 </div>
 
+                {/* AI Estimate */}
+                <div className="p-6 rounded-2xl border border-primary-500/30 bg-primary-600/5">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-lg">🤖</span>
+                    <h4 className="font-semibold">Estimado con IA</h4>
+                  </div>
+                  {aiLoading ? (
+                    <div className="flex items-center gap-3 text-foreground-muted text-sm">
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+                        className="w-4 h-4 border-2 border-primary-400/30 border-t-primary-400 rounded-full shrink-0"
+                      />
+                      Analizando tu proyecto con IA...
+                    </div>
+                  ) : aiEstimate ? (
+                    <p className="text-sm text-foreground-muted leading-relaxed whitespace-pre-wrap">{aiEstimate}</p>
+                  ) : (
+                    <p className="text-sm text-foreground-subtle italic">Calculando estimado...</p>
+                  )}
+                </div>
+
                 <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20 text-sm text-blue-300">
-                  <p>💬 El precio final depende de los detalles específicos. Contactanos y te damos un presupuesto exacto sin compromiso.</p>
+                  <p>💬 Este es un estimado orientativo. El precio final lo acordamos según los detalles de tu proyecto.</p>
                 </div>
 
                 <div className="flex gap-3">
