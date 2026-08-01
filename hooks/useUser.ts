@@ -18,16 +18,27 @@ export function useUser() {
 
   useEffect(() => {
     const pb = getPocketBase();
-    if (pb.authStore.isValid && pb.authStore.model) {
-      setUser(pb.authStore.model as unknown as UserRecord);
+    try {
+      if (pb.authStore.isValid && pb.authStore.model) {
+        setUser(pb.authStore.model as unknown as UserRecord);
+      } else {
+        // Clear invalid auth state silently
+        pb.authStore.clear();
+      }
+    } catch {
+      pb.authStore.clear();
     }
     setLoading(false);
 
     // Listen for auth changes
     const unsub = pb.authStore.onChange(() => {
-      if (pb.authStore.isValid && pb.authStore.model) {
-        setUser(pb.authStore.model as unknown as UserRecord);
-      } else {
+      try {
+        if (pb.authStore.isValid && pb.authStore.model) {
+          setUser(pb.authStore.model as unknown as UserRecord);
+        } else {
+          setUser(null);
+        }
+      } catch {
         setUser(null);
       }
     });
@@ -43,16 +54,20 @@ export function useUser() {
 
   const register = useCallback(async (email: string, password: string, name: string, phone?: string) => {
     const pb = getPocketBase();
-    await pb.collection("users").create({
-      email,
-      password,
-      passwordConfirm: password,
-      name,
-      phone: phone || "",
-      emailVisibility: true,
-    });
-    await pb.collection("users").authWithPassword(email, password);
-    setUser(pb.authStore.model as unknown as UserRecord);
+    try {
+      await pb.collection("users").create({
+        email,
+        password,
+        passwordConfirm: password,
+        name,
+        phone: phone || "",
+        emailVisibility: true,
+      });
+      await pb.collection("users").authWithPassword(email, password);
+      setUser(pb.authStore.model as unknown as UserRecord);
+    } catch (err) {
+      throw err;
+    }
   }, []);
 
   const login = useCallback(async (email: string, password: string) => {
