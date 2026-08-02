@@ -1,13 +1,25 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "digitalstudiorumbo@gmail.com";
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "Messifranco2009";
-
 export async function POST(request: NextRequest) {
   try {
     const { email, password } = await request.json();
 
-    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+    if (!email || !password) {
+      return NextResponse.json({ error: "Email y contraseña requeridos" }, { status: 400 });
+    }
+
+    const adminEmail = process.env.ADMIN_EMAIL;
+    const adminPassword = process.env.ADMIN_PASSWORD;
+
+    if (!adminEmail || !adminPassword) {
+      console.error("ADMIN_EMAIL or ADMIN_PASSWORD env vars not set");
+      return NextResponse.json(
+        { error: "Credenciales de admin no configuradas. Agregá ADMIN_EMAIL y ADMIN_PASSWORD en las variables de entorno de Vercel." },
+        { status: 500 }
+      );
+    }
+
+    if (email === adminEmail && password === adminPassword) {
       const response = NextResponse.json({ success: true });
       response.cookies.set("admin_auth", "true", {
         httpOnly: true,
@@ -24,6 +36,6 @@ export async function POST(request: NextRequest) {
       { status: 401 }
     );
   } catch {
-    return NextResponse.json({ error: "Error interno" }, { status: 500 });
+    return NextResponse.json({ error: "Error interno del servidor" }, { status: 500 });
   }
 }

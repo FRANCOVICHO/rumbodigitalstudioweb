@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Sun, Moon, Terminal, Sparkles } from "lucide-react";
+import { Sun, Moon, Terminal, Sparkles, Check } from "lucide-react";
 import { StatusBanner } from "@/components/admin/StatusBanner";
 import { useTheme } from "@/hooks/useTheme";
 import type { ThemeMode } from "@/types";
@@ -10,11 +10,11 @@ export default function AdminAppearancePage() {
   const { theme, setTheme } = useTheme();
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
 
-  const themes: { mode: ThemeMode; label: string; icon: React.ReactNode; desc: string }[] = [
-    { mode: "dark", label: "Oscuro", icon: <Moon className="w-5 h-5" />, desc: "Fondo negro, acentos azules" },
-    { mode: "light", label: "Claro", icon: <Sun className="w-5 h-5" />, desc: "Fondo blanco, acentos azules" },
-    { mode: "matrix", label: "Matrix", icon: <Terminal className="w-5 h-5" />, desc: "Verde sobre negro" },
-    { mode: "party", label: "Party", icon: <Sparkles className="w-5 h-5" />, desc: "Colores vibrantes" },
+  const themes: { mode: ThemeMode; label: string; icon: React.ReactNode; desc: string; preview: string }[] = [
+    { mode: "dark", label: "Oscuro", icon: <Moon className="w-5 h-5" />, desc: "Fondo negro, acentos azules", preview: "bg-zinc-950 border-zinc-700" },
+    { mode: "light", label: "Claro", icon: <Sun className="w-5 h-5" />, desc: "Fondo blanco, acentos azules", preview: "bg-white border-zinc-200" },
+    { mode: "matrix", label: "Matrix", icon: <Terminal className="w-5 h-5" />, desc: "Verde sobre negro", preview: "bg-green-950 border-green-700" },
+    { mode: "party", label: "Party", icon: <Sparkles className="w-5 h-5" />, desc: "Colores vibrantes y festivos", preview: "bg-purple-950 border-pink-500" },
   ];
 
   function handleTheme(mode: ThemeMode) {
@@ -33,20 +33,36 @@ export default function AdminAppearancePage() {
       <StatusBanner status={status} onClear={() => setStatus("idle")} />
 
       <div>
-        <h3 className="text-sm font-semibold text-foreground-muted mb-3 uppercase tracking-wider">Tema del sitio</h3>
-        <div className="grid grid-cols-2 gap-3">
+        <h3 className="text-sm font-semibold text-foreground-muted mb-4 uppercase tracking-wider">Tema del sitio</h3>
+        <div className="grid grid-cols-2 gap-4">
           {themes.map(t => (
             <button
               key={t.mode}
               onClick={() => handleTheme(t.mode)}
-              className={`p-4 rounded-xl border text-left transition-all ${theme === t.mode ? "border-primary-500 bg-primary-600/20" : "border-white/10 bg-white/5 hover:border-white/20"}`}
+              className={`p-5 rounded-2xl border-2 text-left transition-all hover:scale-[1.02] ${
+                theme === t.mode
+                  ? "border-primary-500 bg-primary-600/20 shadow-glow"
+                  : "border-white/10 bg-white/5 hover:border-white/20"
+              }`}
             >
-              <div className="flex items-center gap-3 mb-2">
-                <div className={`p-2 rounded-lg ${theme === t.mode ? "bg-primary-600/30 text-primary-400" : "bg-white/10 text-foreground-muted"}`}>
-                  {t.icon}
+              {/* Theme preview */}
+              <div className={`w-full h-10 rounded-lg border mb-3 ${t.preview} flex items-center justify-center`}>
+                <span className={`text-xs font-mono ${t.mode === "light" ? "text-zinc-800" : "text-white/70"}`}>
+                  Aa
+                </span>
+              </div>
+              <div className="flex items-center justify-between mb-1">
+                <div className="flex items-center gap-2">
+                  <div className={`p-1.5 rounded-lg ${theme === t.mode ? "bg-primary-600/40 text-primary-300" : "bg-white/10 text-foreground-muted"}`}>
+                    {t.icon}
+                  </div>
+                  <span className="font-semibold text-sm">{t.label}</span>
                 </div>
-                <span className="font-semibold">{t.label}</span>
-                {theme === t.mode && <span className="ml-auto text-xs text-primary-400">Activo</span>}
+                {theme === t.mode && (
+                  <span className="flex items-center gap-1 text-xs text-primary-400 font-medium">
+                    <Check className="w-3 h-3" /> Activo
+                  </span>
+                )}
               </div>
               <p className="text-xs text-foreground-muted">{t.desc}</p>
             </button>
@@ -54,24 +70,8 @@ export default function AdminAppearancePage() {
         </div>
       </div>
 
-      <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
-        <h3 className="text-sm font-semibold mb-4">Vista previa del tema</h3>
-        <div className="grid grid-cols-3 gap-2">
-          {[
-            { label: "Primario", color: "var(--color-primary, #3d52e6)" },
-            { label: "Secundario", color: "var(--color-secondary, #6386fa)" },
-            { label: "Acento", color: "var(--color-bg, #000000)" },
-          ].map(c => (
-            <div key={c.label} className="text-center">
-              <div className="w-full h-10 rounded-lg mb-1 border border-white/10" style={{ backgroundColor: c.color }} />
-              <span className="text-xs text-foreground-muted">{c.label}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
       <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20 text-sm text-blue-300">
-        <p>💡 Los cambios de tema se aplican instantáneamente en el panel. Para afectar el sitio público, el tema se guarda en localStorage del visitante.</p>
+        <p>💡 El tema se guarda en el navegador del visitante. Cada persona puede tener su propio tema. Para cambiar el tema por defecto del sitio, modificá la clase en <code className="bg-blue-900/50 px-1 rounded">app/layout.tsx</code>.</p>
       </div>
     </div>
   );

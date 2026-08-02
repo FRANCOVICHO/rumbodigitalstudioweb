@@ -66,6 +66,7 @@ ${imageBase64 ? "También subió una imagen de referencia para que puedas ver el
         messages,
         max_tokens: 400,
         temperature: 0.7,
+        reasoning_effort: "none", // Disable chain-of-thought for Qwen3
       }),
     });
 
@@ -76,7 +77,10 @@ ${imageBase64 ? "También subió una imagen de referencia para que puedas ver el
     }
 
     const data = await response.json();
-    const text = data.choices?.[0]?.message?.content || "No se pudo obtener una respuesta.";
+    let text = data.choices?.[0]?.message?.content || "No se pudo obtener una respuesta.";
+
+    // Remove <think>...</think> blocks that Qwen3 sometimes includes
+    text = text.replace(/<think>[\s\S]*?<\/think>/gi, "").trim();
 
     return NextResponse.json({ estimate: text });
   } catch (error) {
