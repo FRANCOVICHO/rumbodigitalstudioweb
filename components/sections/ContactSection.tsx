@@ -1,10 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone, MessageCircle, Send, CheckCircle } from "lucide-react";
 
-// Instagram icon inline para compatibilidad con todas las versiones de lucide-react
 function InstagramIcon({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -15,23 +14,38 @@ function InstagramIcon({ className }: { className?: string }) {
   );
 }
 
-const CONTACT_INFO = {
+const PB_URL = process.env.NEXT_PUBLIC_POCKETBASE_URL;
+
+const DEFAULTS = {
   email: "rumboweb31@gmail.com",
   phone: "+54 02920 245637",
-  whatsappNumber: "5402920245637",
-  whatsappUrl: "https://wa.me/5402920245637?text=Hola%2C%20me%20interesa%20un%20presupuesto",
-  instagramUrl: "https://instagram.com/_rumbodigitalstudio",
+  whatsapp_number: "5402920245637",
+  instagram_url: "https://instagram.com/_rumbodigitalstudio",
 };
 
-function buildWhatsAppUrl(name: string, email: string, service: string, message: string) {
+function buildWhatsAppUrl(waNumber: string, name: string, email: string, service: string, message: string) {
   const text = `Hola! Soy ${name} (${email}).${service ? ` Me interesa: ${service}.` : ""} ${message}`;
-  return `https://wa.me/${CONTACT_INFO.whatsappNumber}?text=${encodeURIComponent(text)}`;
+  return `https://wa.me/${waNumber}?text=${encodeURIComponent(text)}`;
 }
 
 export function ContactSection() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", service: "", message: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [contactInfo, setContactInfo] = useState(DEFAULTS);
+
+  // Load contact info from PocketBase site_config
+  useEffect(() => {
+    if (!PB_URL) return;
+    fetch(`${PB_URL}/api/collections/site_config/records`)
+      .then(r => r.json())
+      .then(d => {
+        const cfg: Record<string, string> = {};
+        (d.items || []).forEach((item: { key: string; value: string }) => { cfg[item.key] = item.value; });
+        setContactInfo(prev => ({ ...prev, ...cfg }));
+      })
+      .catch(() => {});
+  }, []);
 
   function validate() {
     const e: Record<string, string> = {};
@@ -48,7 +62,7 @@ export function ContactSection() {
     if (Object.keys(errs).length > 0) { setErrors(errs); return; }
     setErrors({});
     // Open WhatsApp with pre-filled message
-    const url = buildWhatsAppUrl(form.name, form.email, form.service, form.message);
+    const url = buildWhatsAppUrl(contactInfo.whatsapp_number, form.name, form.email, form.service, form.message);
     window.open(url, "_blank");
     setSubmitted(true);
     setForm({ name: "", email: "", phone: "", service: "", message: "" });
@@ -91,19 +105,19 @@ export function ContactSection() {
             </div>
 
             <div className="space-y-4">
-              <a href={`mailto:${CONTACT_INFO.email}`} className="flex items-center gap-4 p-4 rounded-xl bg-background-card border border-border hover:border-primary-500/50 transition-all group">
+              <a href={`mailto:${contactInfo.email}`} className="flex items-center gap-4 p-4 rounded-xl bg-background-card border border-border hover:border-primary-500/50 transition-all group">
                 <Mail className="w-5 h-5 text-primary-400 shrink-0" />
-                <span className="group-hover:text-primary-400 transition-colors">{CONTACT_INFO.email}</span>
+                <span className="group-hover:text-primary-400 transition-colors">{contactInfo.email}</span>
               </a>
-              <a href={`tel:${CONTACT_INFO.phone}`} className="flex items-center gap-4 p-4 rounded-xl bg-background-card border border-border hover:border-primary-500/50 transition-all group">
+              <a href={`tel:${contactInfo.phone}`} className="flex items-center gap-4 p-4 rounded-xl bg-background-card border border-border hover:border-primary-500/50 transition-all group">
                 <Phone className="w-5 h-5 text-primary-400 shrink-0" />
-                <span className="group-hover:text-primary-400 transition-colors">{CONTACT_INFO.phone}</span>
+                <span className="group-hover:text-primary-400 transition-colors">{contactInfo.phone}</span>
               </a>
-              <a href={CONTACT_INFO.whatsappUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-xl bg-background-card border border-border hover:border-green-500/50 transition-all group">
+              <a href={`https://wa.me/${contactInfo.whatsapp_number}?text=Hola%2C%20me%20interesa%20un%20presupuesto`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-xl bg-background-card border border-border hover:border-green-500/50 transition-all group">
                 <MessageCircle className="w-5 h-5 text-green-400 shrink-0" />
                 <span className="group-hover:text-green-400 transition-colors">WhatsApp</span>
               </a>
-              <a href={CONTACT_INFO.instagramUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-xl bg-background-card border border-border hover:border-pink-500/50 transition-all group">
+              <a href={contactInfo.instagram_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-xl bg-background-card border border-border hover:border-pink-500/50 transition-all group">
                 <InstagramIcon className="w-5 h-5 text-pink-400 shrink-0" />
                 <span className="group-hover:text-pink-400 transition-colors">@_rumbodigitalstudio</span>
               </a>
