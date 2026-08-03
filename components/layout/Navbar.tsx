@@ -6,7 +6,6 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { UserMenu } from "@/components/ui/UserMenu";
 
 const navLinks = [
   { label: "Inicio", href: "#inicio" },
@@ -98,9 +97,8 @@ export function Navbar() {
           })}
         </nav>
 
-        {/* User menu + CTA */}
+        {/* CTA */}
         <div className="hidden md:flex items-center gap-3">
-          <UserMenu />
           <a
             href="#contacto"
             onClick={(e) => handleNavClick(e, "#contacto")}
