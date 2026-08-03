@@ -11,7 +11,7 @@ export const fallbackData: FallbackData = {
     ctaSecondaryLabel: "Solicitar Presupuesto",
     ctaSecondaryHref: "#calculadora",
     badgeText: "🚀 Diseño + Desarrollo",
-    heroImageUrl: "/hero-devices.png",
+    heroImageUrl: "/FOTOINICIO.png",
     active: true,
   },
   projects: [
