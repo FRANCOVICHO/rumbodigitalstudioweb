@@ -5,6 +5,7 @@ import { ProjectsSection } from "@/components/sections/ProjectsSection";
 import { ServicesSection } from "@/components/sections/ServicesSection";
 import { HowWeWorkSection } from "@/components/sections/HowWeWorkSection";
 import { PlansSection } from "@/components/sections/PlansSection";
+import { MaintenanceSection } from "@/components/sections/MaintenanceSection";
 import { BudgetCalculator } from "@/components/sections/BudgetCalculator";
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { FAQSection } from "@/components/sections/FAQSection";
@@ -74,6 +75,7 @@ export default async function Home() {
         <ServicesSection services={services} />
         <HowWeWorkSection />
         <PlansSection plans={plans} />
+        <MaintenanceSection />
         <BudgetCalculator />
         <TestimonialsSection testimonials={testimonials} />
         <FAQSection items={faq} />
