@@ -75,21 +75,21 @@ export const fallbackData: FallbackData = {
   ],
   plans: [
     {
-      id: "1", name: "Básico", price: 150000, currency: "ARS", period: "proyecto",
+      id: "1", name: "🟢 Landing Page", price: 69900, currency: "ARS", period: "proyecto",
       description: "Ideal para pequeños negocios que necesitan presencia online.",
       features: ["Hasta 5 páginas", "Diseño responsive", "Formulario de contacto", "SEO básico", "1 mes de soporte"],
       notIncluded: ["E-commerce", "Panel de administración", "Integraciones avanzadas", "Analytics personalizado"],
       highlighted: false, ctaLabel: "Comenzar", ctaHref: "#contacto", order: 1,
     },
     {
-      id: "2", name: "Profesional", price: 300000, currency: "ARS", period: "proyecto",
+      id: "2", name: "🔵 Web Empresarial", price: 125000, currency: "ARS", period: "proyecto",
       description: "Para empresas que buscan destacarse con funcionalidades avanzadas.",
       features: ["Hasta 15 páginas", "Diseño personalizado", "Panel de administración", "SEO avanzado", "3 meses de soporte", "Blog integrado", "Formularios avanzados", "Analytics"],
       notIncluded: ["E-commerce completo", "App mobile"],
-      highlighted: true, badge: "Más elegido", ctaLabel: "Solicitar", ctaHref: "#contacto", order: 2,
+      highlighted: true, badge: "⭐ Más elegido", ctaLabel: "Solicitar", ctaHref: "#contacto", order: 2,
     },
     {
-      id: "3", name: "Enterprise", price: 0, currency: "ARS", period: "proyecto",
+      id: "3", name: "🛒 Enterprise", price: 0, currency: "ARS", period: "proyecto",
       description: "Soluciones completas y personalizadas para grandes proyectos.",
       features: ["Páginas ilimitadas", "Diseño 100% personalizado", "E-commerce completo", "Panel admin avanzado", "SEO enterprise", "6 meses de soporte", "Integraciones API", "Hosting incluido", "Consultoría continua"],
       notIncluded: [],
