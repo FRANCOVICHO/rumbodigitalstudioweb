@@ -17,7 +17,7 @@ function InstagramIcon({ className }: { className?: string }) {
 const PB_URL = process.env.NEXT_PUBLIC_POCKETBASE_URL;
 
 const DEFAULTS = {
-  email: "rumboweb31@gmail.com",
+  email: "digitalstudiorumbo@gmail.com",
   phone: "+54 02920 245637",
   whatsapp_number: "5402920245637",
   instagram_url: "https://instagram.com/_rumbodigitalstudio",
