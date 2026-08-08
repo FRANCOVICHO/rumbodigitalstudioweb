@@ -46,7 +46,7 @@ export function HowWeWorkSection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.15 }}
-                  className="flex flex-col items-center text-center col-span-1 last:col-span-2 sm:last:col-span-1">
+                  className="flex flex-col items-center text-center col-span-1 last:col-span-2 sm:last:col-span-1"
                 >
                   <div className="relative z-10 w-24 h-24 rounded-full bg-primary-600/20 border-2 border-primary-500 flex items-center justify-center mb-4 shadow-glow">
                     <Icon className="w-8 h-8 text-primary-400" />
