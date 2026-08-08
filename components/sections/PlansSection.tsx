@@ -30,7 +30,7 @@ export function PlansSection({ plans }: PlansSectionProps) {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8 items-stretch">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
           {plans.map((plan, index) => (
             <motion.div
               key={plan.id}
@@ -38,9 +38,9 @@ export function PlansSection({ plans }: PlansSectionProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.15 }}
-              className={`relative flex flex-col rounded-2xl border p-8 transition-all duration-300 ${
+              className={`relative flex flex-col rounded-2xl border p-6 sm:p-8 transition-all duration-300 ${
                 plan.highlighted
-                  ? "bg-primary-600/10 border-primary-500 shadow-glow-lg scale-105"
+                  ? "bg-primary-600/10 border-primary-500 shadow-glow-lg"
                   : "bg-background-card border-border hover:border-primary-500/50"
               }`}
             >

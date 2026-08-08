@@ -89,7 +89,7 @@ export function ContactSection() {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 max-w-5xl mx-auto">
           {/* Contact Info */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -141,7 +141,7 @@ export function ContactSection() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} noValidate className="space-y-4">
-                <div className="grid sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <input className={inputClass} placeholder="Nombre *" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} />
                     {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
@@ -152,7 +152,7 @@ export function ContactSection() {
                   </div>
                 </div>
 
-                <div className="grid sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <input className={inputClass} type="tel" placeholder="Teléfono (opcional)" value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} />
                     {errors.phone && <p className="text-red-400 text-xs mt-1">{errors.phone}</p>}

@@ -36,7 +36,7 @@ export function HowWeWorkSection() {
           {/* Connector line — hidden on mobile */}
           <div className="hidden md:block absolute top-12 left-1/2 -translate-x-1/2 w-4/5 h-0.5 bg-gradient-to-r from-primary-600/20 via-primary-500 to-primary-600/20" />
 
-          <div className="grid md:grid-cols-5 gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 md:gap-8">
             {steps.map((s, i) => {
               const Icon = s.icon;
               return (
@@ -46,7 +46,7 @@ export function HowWeWorkSection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.15 }}
-                  className="flex flex-col items-center text-center"
+                  className="flex flex-col items-center text-center col-span-1 last:col-span-2 sm:last:col-span-1">
                 >
                   <div className="relative z-10 w-24 h-24 rounded-full bg-primary-600/20 border-2 border-primary-500 flex items-center justify-center mb-4 shadow-glow">
                     <Icon className="w-8 h-8 text-primary-400" />

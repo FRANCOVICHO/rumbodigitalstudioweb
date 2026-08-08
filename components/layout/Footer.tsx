@@ -19,7 +19,7 @@ export function Footer() {
   return (
     <footer className="py-12 bg-background border-t border-border">
       <div className="container mx-auto px-6">
-        <div className="grid md:grid-cols-3 gap-8 mb-8">
+        <div className="grid md:grid-cols-3 gap-8 mb-8 text-center md:text-left">
           {/* Brand */}
           <div className="space-y-4">
             <h3 className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
@@ -35,7 +35,7 @@ export function Footer() {
             <h4 className="font-semibold text-sm uppercase tracking-wider text-foreground-muted">
               Enlaces
             </h4>
-            <nav className="flex flex-col gap-2">
+            <nav className="flex flex-col gap-2 items-center md:items-start">
               {["Proyectos", "Servicios", "Planes", "FAQ", "Contacto"].map((label) => (
                 <a
                   key={label}
@@ -53,7 +53,7 @@ export function Footer() {
             <h4 className="font-semibold text-sm uppercase tracking-wider text-foreground-muted">
               Seguinos
             </h4>
-            <div className="flex gap-3">
+            <div className="flex gap-3 justify-center md:justify-start">
               <a
                 href="https://instagram.com/rumbodigital"
                 target="_blank"

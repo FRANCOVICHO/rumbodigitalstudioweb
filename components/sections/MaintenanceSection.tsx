@@ -353,7 +353,7 @@ export function MaintenanceSection(): JSX.Element {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center py-16 px-8 rounded-3xl bg-background-card border border-border max-w-3xl mx-auto"
+          className="text-center py-12 px-6 sm:py-16 sm:px-8 rounded-3xl bg-background-card border border-border max-w-3xl mx-auto"
         >
           <h3 className="text-3xl md:text-4xl font-bold mb-4">
             Tu negocio cambia todos los días.
@@ -361,7 +361,7 @@ export function MaintenanceSection(): JSX.Element {
           <p className="text-xl text-foreground-muted mb-8">
             Tu página web también debería poder hacerlo.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center sm:items-stretch">
             <a
               href="https://wa.me/5402920245637?text=Hola%2C+quiero+olvidarme+de+la+parte+t%C3%A9cnica"
               className="px-8 py-4 rounded-xl bg-primary-600 hover:bg-primary-700 text-white shadow-glow transition-colors font-semibold"
