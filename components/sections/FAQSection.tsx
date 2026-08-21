@@ -27,20 +27,20 @@ export function FAQSection({ items }: FAQSectionProps) {
   }
 
   return (
-    <section id="faq" className="py-24 bg-background">
-      <div className="container mx-auto px-6">
+    <section id="faq" className="py-14 md:py-24 bg-background">
+      <div className="container mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-8 md:mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-3">
             <span className="bg-gradient-primary bg-clip-text text-transparent">
               Preguntas Frecuentes
             </span>
           </h2>
-          <p className="text-xl text-foreground-muted max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base md:text-xl text-foreground-muted max-w-2xl mx-auto">
             Encontrá respuestas a las dudas más comunes sobre nuestros servicios
           </p>
         </motion.div>
@@ -62,11 +62,11 @@ export function FAQSection({ items }: FAQSectionProps) {
                 }`}
               >
                 <button
-                  className="w-full flex items-center justify-between p-6 text-left"
+                  className="w-full flex items-center justify-between p-4 sm:p-6 text-left"
                   onClick={() => handleToggle(index)}
                   aria-expanded={isOpen}
                 >
-                  <span className="font-semibold text-lg pr-4">{item.question}</span>
+                  <span className="font-semibold text-sm sm:text-base md:text-lg pr-4">{item.question}</span>
                   <motion.div
                     animate={{ rotate: isOpen ? 180 : 0 }}
                     transition={{ duration: 0.25 }}
@@ -85,7 +85,7 @@ export function FAQSection({ items }: FAQSectionProps) {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3, ease: "easeInOut" }}
                     >
-                      <p className="px-6 pb-6 text-foreground-muted leading-relaxed">
+                      <p className="px-4 sm:px-6 pb-4 sm:pb-6 text-sm text-foreground-muted leading-relaxed">
                         {item.answer}
                       </p>
                     </motion.div>

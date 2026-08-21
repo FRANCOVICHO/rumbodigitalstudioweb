@@ -12,25 +12,25 @@ interface PlansSectionProps {
 
 export function PlansSection({ plans }: PlansSectionProps) {
   return (
-    <section id="planes" className="py-24 bg-background">
-      <div className="container mx-auto px-6">
+    <section id="planes" className="py-14 md:py-24 bg-background">
+      <div className="container mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-8 md:mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-3">
             <span className="bg-gradient-primary bg-clip-text text-transparent">
               Planes y Precios
             </span>
           </h2>
-          <p className="text-xl text-foreground-muted max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base md:text-xl text-foreground-muted max-w-2xl mx-auto">
             Soluciones para cada etapa de tu negocio
           </p>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8 items-start">
           {plans.map((plan, index) => (
             <motion.div
               key={plan.id}
@@ -38,7 +38,7 @@ export function PlansSection({ plans }: PlansSectionProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.15 }}
-              className={`relative flex flex-col rounded-2xl border p-6 sm:p-8 transition-all duration-300 ${
+              className={`relative flex flex-col rounded-2xl border p-5 sm:p-6 md:p-8 transition-all duration-300 ${
                 plan.highlighted
                   ? "bg-primary-600/10 border-primary-500 shadow-glow-lg"
                   : "bg-background-card border-border hover:border-primary-500/50"
@@ -52,10 +52,10 @@ export function PlansSection({ plans }: PlansSectionProps) {
                 </div>
               )}
 
-              <div className="mb-8">
-                <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
-                <p className="text-foreground-muted text-sm mb-4">{plan.description}</p>
-                <div className="text-4xl font-bold">
+              <div className="mb-5 md:mb-8">
+                <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-1">{plan.name}</h3>
+                <p className="text-foreground-muted text-xs sm:text-sm mb-3">{plan.description}</p>
+                <div className="text-2xl sm:text-3xl md:text-4xl font-bold">
                   {plan.price === 0 ? (
                     <span className="text-primary-400">A consultar</span>
                   ) : (

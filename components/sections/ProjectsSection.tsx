@@ -12,25 +12,25 @@ interface ProjectsSectionProps {
 
 export function ProjectsSection({ projects }: ProjectsSectionProps) {
   return (
-    <section id="proyectos" className="py-24 bg-background-secondary">
-      <div className="container mx-auto px-6">
+    <section id="proyectos" className="py-14 md:py-24 bg-background-secondary">
+      <div className="container mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-8 md:mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-3">
             <span className="bg-gradient-primary bg-clip-text text-transparent">
               Nuestros Proyectos
             </span>
           </h2>
-          <p className="text-xl text-foreground-muted max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base md:text-xl text-foreground-muted max-w-2xl mx-auto">
             Mirá algunos de los sitios web que desarrollamos — hacé click en Ver Demo para verlos en vivo
           </p>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {projects.map((project, index) => (
             <motion.div
               key={project.id}

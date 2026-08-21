@@ -123,37 +123,36 @@ export function MaintenanceSection(): JSX.Element {
   return (
     <section
       id="mantenimiento"
-      className="relative py-24 bg-background overflow-hidden"
+      className="relative py-14 md:py-24 bg-background overflow-hidden"
     >
       {/* Animated background blobs */}
       <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary-500/20 rounded-full blur-3xl animate-blob" />
       <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-secondary-500/20 rounded-full blur-3xl animate-blob-slow" />
 
       {/* Main content wrapper */}
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-8 md:mb-16"
         >
-          {/* Decorative icons */}
-          <div className="flex justify-center gap-6 mb-6">
-            <Server className="w-6 h-6 text-primary-400" aria-hidden="true" />
-            <Cloud className="w-6 h-6 text-primary-400" aria-hidden="true" />
-            <Shield className="w-6 h-6 text-primary-400" aria-hidden="true" />
-            <Settings className="w-6 h-6 text-primary-400" aria-hidden="true" />
-            <Activity className="w-6 h-6 text-primary-400" aria-hidden="true" />
+          <div className="flex justify-center gap-4 mb-4">
+            <Server className="w-5 h-5 text-primary-400" aria-hidden="true" />
+            <Cloud className="w-5 h-5 text-primary-400" aria-hidden="true" />
+            <Shield className="w-5 h-5 text-primary-400" aria-hidden="true" />
+            <Settings className="w-5 h-5 text-primary-400" aria-hidden="true" />
+            <Activity className="w-5 h-5 text-primary-400" aria-hidden="true" />
           </div>
 
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-3">
             <span className="bg-gradient-primary bg-clip-text text-transparent">
               Mantenimiento mensual
             </span>
           </h2>
-          <p className="text-xl text-foreground-muted max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base md:text-xl text-foreground-muted max-w-2xl mx-auto">
             Tu página web no termina cuando la publicamos. Con nuestros planes mantenemos tu sitio seguro, actualizado y listo para acompañar el crecimiento de tu negocio.
           </p>
         </motion.div>
@@ -162,7 +161,7 @@ export function MaintenanceSection(): JSX.Element {
         <div className="mb-16">
           <div
             data-testid="plans-grid"
-            className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto"
+            className="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-8 max-w-4xl mx-auto"
           >
             {MAINTENANCE_PLANS.map((plan, index) => (
               <motion.div
@@ -172,7 +171,7 @@ export function MaintenanceSection(): JSX.Element {
                 transition={{ delay: index * 0.15 }}
                 whileHover={{ y: -4 }}
                 viewport={{ once: true }}
-                className={`relative rounded-2xl p-8 bg-background-card border border-border${
+                className={`relative rounded-2xl p-5 sm:p-6 md:p-8 bg-background-card border border-border${
                   plan.highlighted ? " border-primary-500 shadow-glow-lg" : ""
                 }`}
               >
@@ -184,10 +183,10 @@ export function MaintenanceSection(): JSX.Element {
                 )}
 
                 {/* Plan name */}
-                <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
+                <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-2">{plan.name}</h3>
 
                 {/* Price */}
-                <div className="text-4xl font-bold mb-2">
+                <div className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">
                   <span className="bg-gradient-primary bg-clip-text text-transparent">
                     {formatPrice(plan.price, plan.currency)}
                   </span>

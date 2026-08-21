@@ -13,30 +13,29 @@ const steps = [
 
 export function HowWeWorkSection() {
   return (
-    <section id="como-trabajamos" className="py-24 bg-background-secondary">
-      <div className="container mx-auto px-6">
+    <section id="como-trabajamos" className="py-14 md:py-24 bg-background-secondary">
+      <div className="container mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-8 md:mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-3">
             <span className="bg-gradient-primary bg-clip-text text-transparent">
               ¿Cómo Trabajamos?
             </span>
           </h2>
-          <p className="text-xl text-foreground-muted max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base md:text-xl text-foreground-muted max-w-2xl mx-auto">
             Un proceso probado para llevar tu proyecto del concepto a la realidad
           </p>
         </motion.div>
 
-        {/* Desktop: horizontal, Mobile: vertical */}
         <div className="relative">
-          {/* Connector line — hidden on mobile */}
-          <div className="hidden md:block absolute top-12 left-1/2 -translate-x-1/2 w-4/5 h-0.5 bg-gradient-to-r from-primary-600/20 via-primary-500 to-primary-600/20" />
+          {/* Connector line — desktop only */}
+          <div className="hidden md:block absolute top-10 left-1/2 -translate-x-1/2 w-4/5 h-0.5 bg-gradient-to-r from-primary-600/20 via-primary-500 to-primary-600/20" />
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 md:gap-8">
+          <div className="grid grid-cols-3 md:grid-cols-5 gap-4 md:gap-8">
             {steps.map((s, i) => {
               const Icon = s.icon;
               return (
@@ -45,17 +44,19 @@ export function HowWeWorkSection() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.15 }}
-                  className="flex flex-col items-center text-center col-span-1 last:col-span-2 sm:last:col-span-1"
+                  transition={{ delay: i * 0.12 }}
+                  className={`flex flex-col items-center text-center ${
+                    i === 3 ? "col-start-1 sm:col-start-auto" : ""
+                  } ${i >= 3 ? "col-span-1" : ""}`}
                 >
-                  <div className="relative z-10 w-24 h-24 rounded-full bg-primary-600/20 border-2 border-primary-500 flex items-center justify-center mb-4 shadow-glow">
-                    <Icon className="w-8 h-8 text-primary-400" />
-                    <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-primary-600 text-white text-sm font-bold flex items-center justify-center">
+                  <div className="relative z-10 w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full bg-primary-600/20 border-2 border-primary-500 flex items-center justify-center mb-2 md:mb-4 shadow-glow">
+                    <Icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-primary-400" />
+                    <span className="absolute -top-1.5 -right-1.5 w-5 h-5 md:w-7 md:h-7 rounded-full bg-primary-600 text-white text-xs font-bold flex items-center justify-center">
                       {s.step}
                     </span>
                   </div>
-                  <h3 className="text-xl font-bold mb-2">{s.title}</h3>
-                  <p className="text-sm text-foreground-muted">{s.description}</p>
+                  <h3 className="text-sm sm:text-base md:text-lg font-bold mb-1">{s.title}</h3>
+                  <p className="text-xs sm:text-sm text-foreground-muted hidden sm:block">{s.description}</p>
                 </motion.div>
               );
             })}
