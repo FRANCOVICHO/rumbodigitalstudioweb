@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { MessageCircle, X } from "lucide-react";
+import { MessageCircle, X, ArrowRight } from "lucide-react";
 
 const WHATSAPP_NUMBER = "5402920245637";
 const WHATSAPP_MESSAGE = "Hola! Me interesa conocer más sobre sus servicios de desarrollo web.";
@@ -13,32 +13,41 @@ export function WhatsAppButton() {
   const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+    <div className="fixed bottom-6 right-5 z-50 flex flex-col items-end gap-3">
       <AnimatePresence>
         {showTooltip && (
           <motion.div
-            initial={{ opacity: 0, y: 10, scale: 0.9 }}
+            initial={{ opacity: 0, y: 8, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 10, scale: 0.9 }}
-            className="bg-zinc-900 border border-white/10 rounded-2xl p-4 shadow-glass max-w-xs"
+            exit={{ opacity: 0, y: 8, scale: 0.95 }}
+            transition={{ duration: 0.18 }}
+            className="bg-zinc-950 border border-white/[0.1] rounded-2xl p-4 shadow-[0_8px_32px_rgba(0,0,0,0.6)] max-w-[220px]"
           >
-            <div className="flex items-start justify-between gap-3 mb-2">
-              <p className="text-sm font-semibold">¿Necesitás ayuda?</p>
-              <button onClick={() => setShowTooltip(false)} className="text-foreground-subtle hover:text-white transition-colors shrink-0">
-                <X className="w-4 h-4" />
+            <div className="flex items-center justify-between gap-2 mb-2">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                <p className="text-xs font-bold text-white">Estamos en línea</p>
+              </div>
+              <button
+                onClick={() => setShowTooltip(false)}
+                className="text-white/30 hover:text-white/70 transition-colors"
+                aria-label="Cerrar"
+              >
+                <X className="w-3.5 h-3.5" />
               </button>
             </div>
-            <p className="text-xs text-foreground-muted mb-3">
-              Hablá con nosotros por WhatsApp. Te respondemos en minutos.
+            <p className="text-[11px] text-white/40 mb-3 leading-relaxed">
+              Respondemos en minutos por WhatsApp.
             </p>
             <a
               href={url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 w-full py-2 px-4 rounded-xl bg-green-500 hover:bg-green-600 text-white text-sm font-semibold transition-all"
+              className="flex items-center justify-center gap-1.5 w-full py-2 px-3 rounded-xl bg-green-500 hover:bg-green-400 text-white text-xs font-bold transition-all"
             >
-              <MessageCircle className="w-4 h-4" />
+              <MessageCircle className="w-3.5 h-3.5" />
               Chatear ahora
+              <ArrowRight className="w-3 h-3" />
             </a>
           </motion.div>
         )}
@@ -46,18 +55,22 @@ export function WhatsAppButton() {
 
       <motion.button
         onClick={() => setShowTooltip(s => !s)}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-        className="w-14 h-14 rounded-full bg-green-500 hover:bg-green-600 text-white flex items-center justify-center shadow-lg transition-colors"
-        style={{ boxShadow: "0 4px 20px rgba(34,197,94,0.4)" }}
+        whileHover={{ scale: 1.08 }}
+        whileTap={{ scale: 0.94 }}
+        className="w-13 h-13 w-[52px] h-[52px] rounded-full bg-green-500 hover:bg-green-400 text-white flex items-center justify-center shadow-[0_4px_24px_rgba(34,197,94,0.45)] transition-colors"
         aria-label="WhatsApp"
       >
-        <motion.div
-          animate={showTooltip ? { rotate: 180 } : { rotate: 0 }}
-          transition={{ duration: 0.2 }}
-        >
-          {showTooltip ? <X className="w-6 h-6" /> : <MessageCircle className="w-6 h-6" />}
-        </motion.div>
+        <AnimatePresence mode="wait">
+          {showTooltip ? (
+            <motion.div key="x" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.15 }}>
+              <X className="w-5 h-5" />
+            </motion.div>
+          ) : (
+            <motion.div key="wa" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.15 }}>
+              <MessageCircle className="w-5 h-5" />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.button>
     </div>
   );

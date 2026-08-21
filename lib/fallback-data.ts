@@ -9,7 +9,7 @@ export const fallbackData: FallbackData = {
     ctaPrimaryLabel: "Ver Proyectos",
     ctaPrimaryHref: "#proyectos",
     ctaSecondaryLabel: "Solicitar Presupuesto",
-    ctaSecondaryHref: "#calculadora",
+    ctaSecondaryHref: "#contacto",
     badgeText: "🚀 Diseño + Desarrollo",
     heroImageUrl: "/FOTOINICIO.png",
     active: true,

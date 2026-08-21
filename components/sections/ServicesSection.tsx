@@ -18,25 +18,28 @@ interface ServicesSectionProps {
 
 export function ServicesSection({ services }: ServicesSectionProps) {
   return (
-    <section id="servicios" className="py-14 md:py-24 bg-background">
+    <section id="servicios" className="py-20 md:py-32 bg-[#040408]">
       <div className="container mx-auto px-4 sm:px-6">
+
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-8 md:mb-16"
+          transition={{ duration: 0.5 }}
+          className="text-center mb-12 md:mb-16"
         >
-          <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-3">
-            <span className="bg-gradient-primary bg-clip-text text-transparent">
-              Nuestros Servicios
-            </span>
+          <p className="text-xs font-semibold uppercase tracking-[0.15em] text-primary-400 mb-3">Servicios</p>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight tracking-tight mb-4">
+            Todo lo que tu negocio<br className="hidden sm:block" /> necesita en un solo lugar.
           </h2>
-          <p className="text-sm sm:text-base md:text-xl text-foreground-muted max-w-2xl mx-auto">
-            Todo lo que necesitás para tener una presencia digital exitosa
+          <p className="text-white/40 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
+            Desde tu primera página hasta integraciones avanzadas — construimos exactamente lo que necesitás.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
+        {/* Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
           {services.map((service, index) => {
             const Icon = iconMap[service.icon] ?? Zap;
             return (
@@ -44,21 +47,32 @@ export function ServicesSection({ services }: ServicesSectionProps) {
                 key={service.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: (index % 4) * 0.1 }}
-                whileHover={{ scale: 1.03, y: -4 }}
-                className="p-4 sm:p-6 rounded-2xl bg-background-card border border-border hover:border-primary-500/50 transition-all duration-300 group"
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.4, delay: (index % 4) * 0.07 }}
+                whileHover={{ y: -3 }}
+                className="group relative p-4 sm:p-5 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-white/[0.14] hover:bg-white/[0.05] transition-all duration-300 cursor-default overflow-hidden"
               >
+                {/* Hover glow */}
                 <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-all duration-300"
-                  style={{ backgroundColor: `${service.color}20`, color: service.color }}
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"
+                  style={{ background: `radial-gradient(circle at 50% 0%, ${service.color}18 0%, transparent 70%)` }}
+                />
+
+                {/* Icon */}
+                <div
+                  className="relative w-10 h-10 rounded-xl flex items-center justify-center mb-3 transition-all duration-300 group-hover:scale-110"
+                  style={{ backgroundColor: `${service.color}18`, color: service.color }}
                 >
-                  <Icon className="w-6 h-6" />
+                  <Icon className="w-5 h-5" />
                 </div>
-                <h3 className="text-lg font-bold mb-2 group-hover:text-primary-400 transition-colors">
+
+                {/* Text */}
+                <h3 className="relative text-sm font-bold text-white/80 group-hover:text-white mb-1.5 transition-colors">
                   {service.name}
                 </h3>
-                <p className="text-sm text-foreground-muted">{service.description}</p>
+                <p className="relative text-xs text-white/35 group-hover:text-white/50 leading-relaxed transition-colors">
+                  {service.description}
+                </p>
               </motion.div>
             );
           })}
